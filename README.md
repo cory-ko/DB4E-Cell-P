@@ -1,2 +1,2 @@
-DB4E-Cell-P
+Database project for E-Cell 4 P
 ===========
