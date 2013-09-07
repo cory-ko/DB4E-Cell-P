@@ -1,5 +1,8 @@
 # vim
 *.swp
 
+# emacs
+*~
+
 # MacOS
 .DS_Store
