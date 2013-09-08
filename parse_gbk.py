@@ -13,19 +13,28 @@ if len(sys.argv) == 2:
 else:
     raise SystemExit("[Usage] python" + __file__ + " <in.gbk>")
 
-handle = open(sys.argv[1])
-for record in SeqIO.parse(handle, 'genbank'):
-    #seq = str(record.seq)
+    
+DEBUG = 0
+gene_count = 0
 
+handle = open(gbk_file, 'r')
+for record in SeqIO.parse(handle, 'genbank'):
     for feature in record.features:
-        if feature.type == 'gene' or feature.type == 'rRNA' or feature.type == 'tRNA':
-            if not 'pseudo' in feature.qualifiers:
-                if 'gene' in feature.qualifiers:
-                    gene_name = feature.qualifiers['gene'][0]
-                    start = feature.location.start
-                    end = feature.location.end
-                    strand = feature.location.strand
-                    print "%s\t%s\t%s\t%s" % (gene_name, strand, start, end)
+        if feature.type == 'CDS' or feature.type == 'rRNA' or feature.type == 'tRNA':
+            
+            if not 'pseudo' in feature.qualifiers and 'gene' in feature.qualifiers:
+                gene_name = feature.qualifiers['gene'][0]
+                start = feature.location.start
+                end = feature.location.end
+                strand = int(feature.location.strand)
+                seq = record.seq[start:end]
+                feature = feature.type
+                print "%s\t%s\t%s\t%s\t%s\t%s" % (gene_name, strand, start, end, feature, seq)
+                
+                gene_count += 1
+                
+if DEBUG:
+    print "gene count: ", gene_count
                     
 
             
