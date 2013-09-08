@@ -9,3 +9,11 @@
 
 # data
 data
+
+<<<<<<< HEAD
+# database
+db
+=======
+#local
+local
+>>>>>>> versioncheck
