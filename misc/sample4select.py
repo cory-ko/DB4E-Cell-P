@@ -1,10 +1,12 @@
 #!/usr/bin/env python
+# sample script to search from DB
 
 __author__ = 'Kazuki Oshita <cory@g-language.org>'
 
 from sqlalchemy import *
 from sqlalchemy.orm import mapper, sessionmaker
 
+# Species class
 class Species(object):
     def __init__(self, name, strand, start, end, feature, sequence):
         self.name = name
@@ -17,14 +19,11 @@ class Species(object):
 # Metadata entity collection
 metadata = MetaData()
 
-# for debugging, please set echo=True
-engine = create_engine('sqlite:///db/ecell.db')
-
-# table definition (Species table)
+# Species table
 species_table = Table('species', metadata,
                       Column('id',       Integer, primary_key=True),
                       Column('name',     String),
-                      Column('strand',   String),                      
+                      Column('strand',   String),
                       Column('start',    Integer),
                       Column('end',      Integer),
                       Column('feature',  String),
@@ -32,8 +31,9 @@ species_table = Table('species', metadata,
                       sqlite_autoincrement=True
                   )
 
-# create table to DB
-metadata.create_all(engine)
+
+# for debugging, please set echo=True
+engine = create_engine('sqlite:///db/ecell.db')
 
 # mapping python class to table
 mapper(Species, species_table)
@@ -45,12 +45,10 @@ Session.configure(bind=engine)
 # session start!
 session = Session()
 
-# data registration to sqlite3
-with open("data/refSeq_data.tbl", "r") as f:
-    for line in f:
-        (name, strand, start, end, feature, sequence) = line[:-1].split("\t")
-        obj = Species(name, strand, start, end, feature, sequence)
-        session.add(obj)
+# get species which starts from 80866
+for o in session.query(Species).filter_by(start = 80866):
+    print o.sequence
 
-# commit to database
-session.commit()
+# get IDs about all direct species
+for o in session.query(Species).filter_by(strand = 1):
+    print o.id
