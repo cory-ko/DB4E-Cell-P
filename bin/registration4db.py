@@ -2,41 +2,16 @@
 
 __author__ = 'Kazuki Oshita <cory@g-language.org>'
 
-from sqlalchemy import *
-from sqlalchemy.orm import mapper, sessionmaker
+import sys
+sys.path.append('./lib')
 
-class Species(object):
-    def __init__(self, name, strand, start, end, feature, sequence):
-        self.name = name
-        self.strand = strand
-        self.start = start
-        self.end = end
-        self.feature = feature
-        self.sequence = sequence
-
-# Metadata entity collection
-metadata = MetaData()
+from species import *
 
 # for debugging, please set echo=True
 engine = create_engine('sqlite:///db/ecell.db')
 
-# table definition (Species table)
-species_table = Table('species', metadata,
-                      Column('id',       Integer, primary_key=True),
-                      Column('name',     String),
-                      Column('strand',   String),                      
-                      Column('start',    Integer),
-                      Column('end',      Integer),
-                      Column('feature',  String),
-                      Column('sequence', String),
-                      sqlite_autoincrement=True
-                  )
-
 # create table to DB
 metadata.create_all(engine)
-
-# mapping python class to table
-mapper(Species, species_table)
 
 # create session object
 Session = sessionmaker()
