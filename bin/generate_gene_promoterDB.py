@@ -10,7 +10,13 @@ E-mail: t10078si@sfc.kei.ac.jp
 '''
 
 def main():
+    """
+    This script is used for generating promoter information per gene
+
+    DATA URL: http://regulondb.ccg.unam.mx/menu/download/datasets/files/OperonSet.txt
+    OUTPUT  : gene_name    strand    operon_id
     
+    """
     file = '/home/soh.i/E-cell_Sprint/RegulonDATADist/OperonSet.txt'
 
     DEBUG = 0
