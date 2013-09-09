@@ -13,7 +13,10 @@ def main():
     """
     This script generates the operon DB from OperonSet.txt,
     input data was collected from web resource of the RegulonDB.
-    [url: http://regulondb.ccg.unam.mx/menu/download/datasets/files/OperonSet.txt]
+    
+    URL    : http://regulondb.ccg.unam.mx/menu/download/datasets/files/OperonSet.txt
+    OUTPUT : promoter_name    start    end    strand    gene_name(s)
+    
     """
     
     header = "%s\t%s\t%s\t%s\t%s" % ("promoter_id", "start", "end", "strand", "gene name(s)")
