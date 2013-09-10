@@ -14,15 +14,19 @@ else:
     raise SystemExit("[Usage] python" + __file__ + " <in.gbk>")
 
 
-def main():    
-    DEBUG = 0
-    gene_count = 0
+def main():
+
+    cds_f  = open('CDS_annotation.tbl', 'a')
+    rrna_f = open('rRNA_annotation.tbl', 'a')
+    trna_f = open('tRNA_annotation_tbl', 'a')
+
 
     handle = open(gbk_file, 'r')
+    
     for record in SeqIO.parse(handle, 'genbank'):
         for feature in record.features:
-            if feature.type == 'CDS' or feature.type == 'rRNA' or feature.type == 'tRNA':
-            
+            if feature.type == 'CDS':
+                            
                 if not 'pseudo' in feature.qualifiers and 'gene' in feature.qualifiers:
                     gene    = feature.qualifiers['gene'][0]
                     start   = feature.location.start
@@ -31,12 +35,28 @@ def main():
                     seq     = record.seq[start:end]
                     feature = feature.type
                     
-                    print "%s\t%s\t%s\t%s\t%s\t%s" % (gene, strand, start, end, feature, seq)
+                    cds_f.write("%s\t%s\t%s\t%s\t%s\t%s\n" % (gene, strand, start, end, feature, seq))
                 
-                    gene_count += 1
+                    
+            elif feature.type == 'rRNA':
+                gene    = feature.qualifiers['gene'][0]
+                start   = feature.location.start
+                end     = feature.location.end
+                strand  = int(feature.location.strand)
+                seq     = record.seq[start:end]
+                feature = feature.type
+                    
+                rrna_f.write("%s\t%s\t%s\t%s\t%s\t%s\n" % (gene, strand, start, end, feature, seq))
                 
-    if DEBUG:
-        print "gene count: ", gene_count
+            elif feature.type == 'tRNA':
+                gene    = feature.qualifiers['gene'][0]
+                start   = feature.location.start
+                end     = feature.location.end
+                strand  = int(feature.location.strand)
+                seq     = record.seq[start:end]
+                feature = feature.type
+
+                trna_f.write("%s\t%s\t%s\t%s\t%s\t%s\n" % (gene, strand, start, end, feature, seq))
 
 
 if __name__ == '__main__':
