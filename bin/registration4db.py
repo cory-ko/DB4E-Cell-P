@@ -8,7 +8,7 @@ sys.path.append('./lib')
 from species import *
 
 # for debugging, please set echo=True
-engine = create_engine('sqlite:///db/ecell.db')
+engine = create_engine('sqlite:///:memory:')
 
 # create table to DB
 metadata.create_all(engine)
