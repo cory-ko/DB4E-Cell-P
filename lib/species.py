@@ -105,7 +105,7 @@ class Terminator(Species):
         Species.__init__(self, name, strand, start, end, feature, sequence)
 
 # table definition (promoter table)
-terminatpr_table = Table('terminator', metadata,
+terminator_table = Table('terminator', metadata,
                    Column('id',       Integer, primary_key=True),
                    Column('name',     String),
                    Column('strand',   String),                      
