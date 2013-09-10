@@ -22,7 +22,7 @@ session = Session()
 
 # data registration to sqlite3
 
-with open("data/CDS_annotation", "r") as f:
+with open("data/CDS_annotation.tbl", "r") as f:
     for line in f:
         (name, strand, start, end, feature, sequence) = line[:-1].split("\t")
         obj = CDS(name, strand, start, end, feature, sequence)

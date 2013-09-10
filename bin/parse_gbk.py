@@ -20,7 +20,7 @@ def generate_annotation_files():
 
     cds_f  = open('../data/CDS_annotation.tbl', 'a')
     rrna_f = open('../data/rRNA_annotation.tbl', 'a')
-    trna_f = open('../data/tRNA_annotation_tbl', 'a')
+    trna_f = open('../data/tRNA_annotation.tbl', 'a')
 
     handle = open(gbk_file, 'r')
     
