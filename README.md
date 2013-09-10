@@ -1,11 +1,13 @@
 Database project for E-Cell 4 P
 ===========
+Install dependencies
+-----------
+pip install -r requeirements.txt
 
 Required packages
 -----------
-see pip_requirements.txt
+see requirements.txt
 
-pip install -r requirement.txt
 
 Scripts
 -----------
