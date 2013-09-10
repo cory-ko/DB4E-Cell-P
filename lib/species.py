@@ -31,14 +31,14 @@ species_table = Table('species', metadata,
                   )
 
 
-# Gene class
-class Genes(Species):
+# cds class
+class CDS(Species):
     def __init__(self, name, strand, start, end, feature, sequence, operon):
         Species.__init__(self, name, strand, start, end, feature, sequence)
         self.operon = operon
 
-# table definition (Genes table)
-genes_table = Table('genes', metadata,
+# table definition (cds table)
+cds_table = Table('cds', metadata,
                     Column('id',       Integer, primary_key=True),
                     Column('name',     String),
                     Column('strand',   String),                      
@@ -49,7 +49,7 @@ genes_table = Table('genes', metadata,
                     sqlite_autoincrement=True
                 )
 
-# Gene class
+# rRNA class
 class rRNA(Species):
     def __init__(self, name, strand, start, end, feature, sequence):
         Species.__init__(self, name, strand, start, end, feature, sequence)
@@ -69,4 +69,4 @@ rRNA_table = Table('rRna', metadata,
 
 # mapping python class to table
 mapper(Species, species_table)
-mapper(Genes,   genes_table)
+mapper(CDS,   cds_table)
