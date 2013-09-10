@@ -2,6 +2,8 @@
 
 from Bio import SeqIO
 import sys
+import os.path
+import os
 
 __author__ = """
 Name: Soh Ishiguro
@@ -14,12 +16,11 @@ else:
     raise SystemExit("[Usage] python" + __file__ + " <in.gbk>")
 
 
-def main():
+def generate_annotation_files():
 
     cds_f  = open('CDS_annotation.tbl', 'a')
     rrna_f = open('rRNA_annotation.tbl', 'a')
     trna_f = open('tRNA_annotation_tbl', 'a')
-
 
     handle = open(gbk_file, 'r')
     
@@ -60,8 +61,18 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
     
-
+    if os.path.isfile('./CDS_annotation.tbl'):
+        os.remove('./CDS_annotation.tbl')
+        
+    if os.path.isfile('./rRNA_annotation.tbl'):
+        os.remove('./rRNA_annotation.tbl')
+                
+    if os.path.isfile('./tRNA_annotation_tbl'):
+        os.remove('./tRNA_annotation_tbl')
+        
+    generate_annotation_files()
+    
+    
             
 
