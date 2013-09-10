@@ -85,16 +85,28 @@ class GenomicArray(object):
         for i in record.seq:
             self.rec.append([i])
         return self.rec
+
+
+def print_seq(seq):
+    
+    print "Seq. length: %s" % (len(seq))
+
+    ss = ''
+    for s in seq:
+        ss += s[0]
+    print "Extracted seq. %s" % (ss)
+    
     
 def main():
 
-    ecoli_genome = '/home/soh.i/E-cell_Sprint/NC_000913.fna'
+    ecoli_genome = '../data/test.fa'
     ga = GenomicArray(ecoli_genome)	
     whole_seq_array = ga.seq_to_array()
 
     gc = GenomicCoordinate(start=30, end=200, seq=whole_seq_array, circular=False)
-    print gc.retrieve_seq()
-
+    
+    print_seq(gc.retrieve_seq())
+    
     
 if __name__ == '__main__':
     main()
