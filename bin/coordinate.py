@@ -33,6 +33,7 @@ def extract_seq(seq='', start='', end='', circular=True):
     length = len(seq)
     print seq
 
+    
     def circular():
         
         '''
@@ -44,6 +45,14 @@ def extract_seq(seq='', start='', end='', circular=True):
 
         elif start > 0 and end < 0:
             return seq[start-1:length-abs(end)]
+
+        elif start < 0 and end > 0:
+            return seq[start-1:length-abs(end)]
+            
+        elif start < 0 and end < 0:
+            return seq[length-abs(end):length-abs(start)]
+        
+            
             
 
     def linear():
@@ -59,11 +68,11 @@ def extract_seq(seq='', start='', end='', circular=True):
             pass
     
     if circular:
-        print "Circular genome sequence: "
+        print "Circular genome sequence: ",
         print circular()
         
     elif not circular:
-        print "Linear sequence: "
+        print "Linear sequence: ",
         print linear()
         
 """
@@ -87,9 +96,10 @@ def extract_seq(seq='', start='', end='', circular=True):
 
 def main():
     seq = 'TCATTTAGCCTCTCCACTTTGAGCCTGCTGAAACAAGGTG' #40
-    s = 2
-    e = -3
+    s = -1
+    e = -10
     
+    print "start: %d, end: %d" %(s, e)
     extract_seq(seq=seq, start=s, end=e, circular=True)
 
     
