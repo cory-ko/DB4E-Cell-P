@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-import string
-
 __author__ = '''
 Name: Soh Ishiguro
 E-mail: t10078si@sfc.keio.ac.jp
@@ -10,27 +7,27 @@ E-mail: t10078si@sfc.keio.ac.jp
 
 class GenomicCoordinate(object):
 
-    def __init__(start, end, seq, circular):
-        self.start = start
-        self.end = end
-        self.seq = seq
+    def __init__(self, start='', end='', seq='', circular=True):
+        self.start    = int(start)
+        self.end      = int(end)
+        self.sequence = seq
         self.circular = circular
-        self.length = len(seq)
+        self.length   = len(seq)
 
-    def __circular(self):
+    def circular(self):
         pass
 
-    def __linear(self):
+    def linear(self):
         
         '''
         For lnear genomic coordinate.
         '''
         
         if self.start > 0 and self.end > 0:
-            return self.seq[self.start:self.seq]
+            return self.sequence[self.start:self.length]
 
-        elif self.start > 0 and end > self.length:
-            return self.seq[self.start:self.length]
+        elif self.start > 0 and self.end > self.length:
+            return self.sequence[self.start:self.length]
             
         elif self.start > self.length:
             return ''
@@ -38,14 +35,18 @@ class GenomicCoordinate(object):
             
     def retrieve_seq(self):
         if self.circular:
-            __circular()
-            
+            circular()
+
         elif not self.circular:
-            __linear()
+            linear()
 
 
 
-        
+s = 'TCATTTAGCCTCTCCACTTTGAGCCTGCTGAAACAAGGTG'
+gc = GenomicCoordinate(start=10, end=20, seq=s, circular=False)
+print gc.linear()
+
+
 def extract_seq(seq='', start='', end='', circular=True):
     
     '''
@@ -113,12 +114,13 @@ def extract_seq(seq='', start='', end='', circular=True):
         
 
 def main():
-    seq = 'TCATTTAGCCTCTCCACTTTGAGCCTGCTGAAACAAGGTG' #40
-    s =  30
-    e =  100
+    pass
+    #seq = 'TCATTTAGCCTCTCCACTTTGAGCCTGCTGAAACAAGGTG' #40
+    #ss =  30
+    #ee =  100
     
-    print "start: %d, end: %d" %(s, e)
-    extract_seq(seq=seq, start=s, end=e, circular=False)
+    #print "start: %d, end: %d" %(ss, ee)
+    #extract_seq(seq=seq, start=ss, end=ee, circular=False)
 
     
 if __name__ == '__main__':
