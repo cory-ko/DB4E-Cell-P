@@ -10,13 +10,17 @@ Name: Soh Ishiguro
 E-mail: t10078si@sfc.kei.ac.jp
 """
 
-if len(sys.argv) == 2:
-    gbk_file = sys.argv[1]
-else:
-    raise SystemExit("[Usage] python" + __file__ + " <in.gbk>")
-
-
-def generate_annotation_files():
+def clean_up
+    if os.path.isfile('../data/CDS_annotation.tbl'):
+        os.remove('../data/CDS_annotation.tbl')
+        
+    if os.path.isfile('../data/rRNA_annotation.tbl'):
+        os.remove('../data/rRNA_annotation.tbl')
+                
+    if os.path.isfile('../data/tRNA_annotation_tbl'):
+        os.remove('../data/tRNA_annotation_tbl')
+ 
+def generate_annotation_files(gbk_file):
 
     cds_f  = open('../data/CDS_annotation.tbl', 'a')
     rrna_f = open('../data/rRNA_annotation.tbl', 'a')
@@ -60,19 +64,7 @@ def generate_annotation_files():
                 trna_f.write("%s\t%s\t%s\t%s\t%s\t%s\n" % (gene, strand, start, end, feature, seq))
 
 
-if __name__ == '__main__':
     
-    if os.path.isfile('../data/CDS_annotation.tbl'):
-        os.remove('../data/CDS_annotation.tbl')
-        
-    if os.path.isfile('../data/rRNA_annotation.tbl'):
-        os.remove('../data/rRNA_annotation.tbl')
-                
-    if os.path.isfile('../data/tRNA_annotation_tbl'):
-        os.remove('../data/tRNA_annotation_tbl')
-        
+       
     generate_annotation_files()
     
-    
-            
-
