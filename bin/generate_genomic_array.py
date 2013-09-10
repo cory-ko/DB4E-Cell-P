@@ -8,22 +8,35 @@ Name: Soh Ishiguro
 E-mail: t10078si@sfc.keio.ac.jp
 """
 
-def seq_to_array(seq):
+class GenomicArray(object):
     
-"""
-Generate whole genome sequence array per base.
-Arg: seq_to_array("in.fasta")
-
-"""
+    def __init__(self, seq):
+        self.seq = seq
+        
+    def seq_to_array(self):
+        
+        """
+        Generate whole genome sequence array per base.
+        
+        Usage: gr = GenomicArray("in.fasta")
+               gr.seq_to_array()
+        
+        Return value: [['A'], ['T'], ['G']...]
+        
+        """
     
-    record = SeqIO.read(seq, "fasta")
-    rec = []
-    for i in record.seq:
-        rec.append([i])
+        record = SeqIO.read(self.seq, "fasta")
+        self.rec = []
+        for i in record.seq:
+            self.rec.append([i])
 
-    return rec
+        return self.rec
+
 
 ecoli_genome = '/home/soh.i/E-cell_Sprint/NC_000913.fna'
+g = GenomicArray(ecoli_genome)
+whole_seq_array = g.seq_to_array()
+
 
 
 
