@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from Bio import SeqIO
 
 __author__ = '''
 Name: Soh Ishiguro
@@ -16,9 +17,10 @@ class GenomicCoordinate(object):
         self.length   = len(seq)
 
     def get_circular_genome(self):
-        '''
+        
+        """
         For circular genomic coordinate
-        '''
+        """
         
         if self.start > self.end:
             return self.sequence[self.start-1:self.end]
@@ -40,9 +42,10 @@ class GenomicCoordinate(object):
 
 
     def get_linear_genome(self):
-        '''
+        
+        """
         For lnear genomic coordinate.
-        '''
+        """
         
         if self.start > 0 and self.end > 0:
             return self.sequence[self.start-1:self.end]
@@ -61,10 +64,35 @@ class GenomicCoordinate(object):
             return self.get_linear_genome()
 
 
+class GenomicArray(object):
+    
+    """
+    Generate whole genome sequence array per base.
+    
+    Argument: sequence file(fasta)
+    Usage: gr = GenomicArray("in.fasta")
+           gr.seq_to_array()
+    Return value: [['A'], ['T'], ['G']...]
+    """
 
+    def __init__(self, seq):
+        self.seq = seq
+        
+    def seq_to_array(self):
+        record = SeqIO.read(self.seq, "fasta")
+        self.rec = []
+            
+        for i in record.seq:
+            self.rec.append([i])
+        return self.rec
+    
 def main():
-    s = 'TCATTTAGCCTCTCCACTTTGAGCCTGCTGAAACAAGGTG'
-    gc = GenomicCoordinate(start=30, end=200, seq=s, circular=False)
+
+    ecoli_genome = '/home/soh.i/E-cell_Sprint/NC_000913.fna'
+    ga = GenomicArray(ecoli_genome)	
+    whole_seq_array = ga.seq_to_array()
+
+    gc = GenomicCoordinate(start=30, end=200, seq=whole_seq_array, circular=False)
     print gc.retrieve_seq()
 
     
