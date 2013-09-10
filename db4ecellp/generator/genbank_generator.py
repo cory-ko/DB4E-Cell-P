@@ -10,7 +10,7 @@ Name: Soh Ishiguro
 E-mail: t10078si@sfc.kei.ac.jp
 """
 
-def clean_up
+def clean_up():
     if os.path.isfile('../data/CDS_annotation.tbl'):
         os.remove('../data/CDS_annotation.tbl')
         

@@ -9,6 +9,7 @@ from db4ecellp import db4ecellp
 
 def main():
     _db4ecellp = db4ecellp.Db4ecellp()
+    _db4ecellp.generate_files()
     
 if __name__ == "__main__":
     main()
