@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+
 __author__ = '''
 Name: Soh Ishiguro
 E-mail: t10078si@sfc.keio.ac.jp
@@ -15,10 +16,30 @@ class GenomicCoordinate(object):
         self.length   = len(seq)
 
     def circular(self):
-        pass
+        '''
+        For circular genomic coordinate
+        '''
+        
+        if self.start > self.end:
+            return self.sequence[self.start-1:self.end]
+
+        elif self.end < self.start:
+            return self.sequence[self.start:self.length % self.end]
+            
+        elif self.start > 0 and self.end > 0:
+            return self.sequence[self.start-1:self.end]
+
+        elif self.start > 0 and self.end < 0:
+            return self.sequence[self.start-1:self.length-abs(self.end)]
+
+        elif self.start < 0 and self.end > 0:
+            return self.sequence[self.start-1:self.length-abs(self.end)]
+            
+        elif self.start < 0 and self.end < 0:
+            return self.sequence[self.length-abs(end):self.length-abs(self.start)]
+
 
     def linear(self):
-        
         '''
         For lnear genomic coordinate.
         '''
@@ -69,7 +90,7 @@ def extract_seq(seq='', start='', end='', circular=True):
         '''
         For circular genomic coordinate
         '''
-
+        
         if start > end:
             return seq[start-1:end]
 
