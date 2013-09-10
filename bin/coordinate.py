@@ -20,30 +20,26 @@ class GenomicCoordinateException(Exception):
 class GenomicCoordinate(object):
 
     def __init__(self, start='', end='', seq='', circular=True):
+
+        if circular:
+            if start == 0 or end == 0:
+                raise GenomicCoordinateException(start, end)
+                
+        elif not circular:
+            if start <= 0 or end <= 0:
+                raise GenomicCoordinateException(start, end)
+        
         self.start    = int(start)
         self.end      = int(end)
         self.sequence = seq
         self.circular = circular
         self.length   = len(seq)
 
-    def check_coordinate(self):
-        # if circular
-        if self.circular:
-            if self.start == 0 or self.end == 0:
-                raise GenomicCoordinateException(self.start, self.end)
-
-        # if linear
-        if not self.circular:
-            if self.start == 0 or self.end == 0: # or self.start < 0 or self.end < 0:
-                raise GenomicCoordinateException(self.start, self.end)
-
     def get_circular_genome(self):
         
         """
         For circular genomic coordinate
         """
-
-        self.check_coordinate()
         
         if self.start > self.end:
             return self.sequence[self.start-1:self.end]
@@ -70,8 +66,6 @@ class GenomicCoordinate(object):
         For lnear genomic coordinate.
         """
 
-        self.check_coordinate()
-            
         if self.start > 0 and self.end > 0:
             return self.sequence[self.start-1:self.end]
 
@@ -82,6 +76,7 @@ class GenomicCoordinate(object):
             return ''
 
     def retrieve_seq(self):
+        
         if self.circular:
             return self.get_circular_genome()
             
@@ -111,8 +106,6 @@ class GenomicArray(object):
             self.rec.append([i])
         return self.rec
 
-    
-
 def print_seq(seq):
     
     print "Seq. length: %s" % (len(seq))
@@ -121,7 +114,6 @@ def print_seq(seq):
     for s in seq:
         ss += s[0]
     print "Extracted seq. \n%s\n" % (ss)
-
     
 def linear_test():
 
@@ -130,7 +122,7 @@ def linear_test():
     ga = GenomicArray(ecoli_genome)	
     whole_seq_array = ga.seq_to_array()
 
-    type1 = GenomicCoordinate(start=30, end=200, seq=whole_seq_array, circular=False)
+    type1 = GenomicCoordinate(start=-1, end=0, seq=whole_seq_array, circular=True)
     print_seq(type1.retrieve_seq())
 
     #type2 = GenomicCoordinate(start=100, end=10000000, seq=whole_seq_array, circular=False)
@@ -139,7 +131,6 @@ def linear_test():
     #type3 = GenomicCoordinate(start=-1, end=0)
     #print_seq(type3.retrieve_seq())
     
-
 
 def circular_genome():
     pass
