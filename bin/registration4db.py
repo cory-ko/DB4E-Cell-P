@@ -8,7 +8,7 @@ sys.path.append('./lib')
 from species import *
 
 # for debugging, please set echo=True
-engine = create_engine('sqlite:///db/ecell.db')
+engine = create_engine('sqlite:///:memory:')
 
 # create table to DB
 metadata.create_all(engine)
@@ -21,11 +21,36 @@ Session.configure(bind=engine)
 session = Session()
 
 # data registration to sqlite3
-with open("data/refSeq_data.tbl", "r") as f:
+
+with open("data/CDS_annotation", "r") as f:
     for line in f:
         (name, strand, start, end, feature, sequence) = line[:-1].split("\t")
-        obj = Species(name, strand, start, end, feature, sequence)
+        obj = CDS(name, strand, start, end, feature, sequence)
         session.add(obj)
+
+with open("data/rRNA_annotation.tbl", "r") as f:
+    for line in f:
+        (name, strand, start, end, feature, sequence) = line[:-1].split("\t")
+        obj = rRNA(name, strand, start, end, feature, sequence)
+        session.add(obj)
+
+with open("data/tRNA_annotation.tbl", "r") as f:
+    for line in f:
+        (name, strand, start, end, feature, sequence) = line[:-1].split("\t")
+        obj = tRNA(name, strand, start, end, feature, sequence)
+        session.add(obj)
+with open("data/promoter_annotation.tbl", "r") as f:
+    for line in f:
+        (name, strand, start, end, feature, sequence) = line[:-1].split("\t")
+        obj = tRNA(name, strand, start, end, feature, sequence)
+        session.add(obj)
+
+with open("data/terminator_annotation.tbl", "r") as f:
+    for line in f:
+        (name, strand, start, end, feature, sequence) = line[:-1].split("\t")
+        obj = tRNA(name, strand, start, end, feature, sequence)
+        session.add(obj)
+
 
 # commit to database
 session.commit()
