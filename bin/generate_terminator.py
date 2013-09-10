@@ -21,7 +21,6 @@ Terminator information from
         line = line.rstrip()
         if not re.match('^[#]',line) and re.match('^\S',line):
             lineArray = line.split("\t")
-            print lineArray
             if lineArray[3] in "forward":
                 print "\t".join([lineArray[0],"1",lineArray[1],lineArray[2],"terminator",lineArray[4] ])
             else:
