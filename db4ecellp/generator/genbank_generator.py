@@ -11,20 +11,20 @@ E-mail: t10078si@sfc.kei.ac.jp
 """
 
 def clean_up():
-    if os.path.isfile('../data/CDS_annotation.tbl'):
-        os.remove('../data/CDS_annotation.tbl')
+    if os.path.isfile('data/CDS_annotation.tbl'):
+        os.remove('data/CDS_annotation.tbl')
         
-    if os.path.isfile('../data/rRNA_annotation.tbl'):
-        os.remove('../data/rRNA_annotation.tbl')
+    if os.path.isfile('data/rRNA_annotation.tbl'):
+        os.remove('data/rRNA_annotation.tbl')
                 
-    if os.path.isfile('../data/tRNA_annotation_tbl'):
-        os.remove('../data/tRNA_annotation_tbl')
+    if os.path.isfile('data/tRNA_annotation_tbl'):
+        os.remove('data/tRNA_annotation_tbl')
  
 def generate_annotation_files(gbk_file):
 
-    cds_f  = open('../data/CDS_annotation.tbl', 'a')
-    rrna_f = open('../data/rRNA_annotation.tbl', 'a')
-    trna_f = open('../data/tRNA_annotation.tbl', 'a')
+    cds_f  = open('data/CDS_annotation.tbl', 'a')
+    rrna_f = open('data/rRNA_annotation.tbl', 'a')
+    trna_f = open('data/tRNA_annotation.tbl', 'a')
 
     handle = open(gbk_file, 'r')
     
@@ -63,8 +63,3 @@ def generate_annotation_files(gbk_file):
 
                 trna_f.write("%s\t%s\t%s\t%s\t%s\t%s\n" % (gene, strand, start, end, feature, seq))
 
-
-    
-       
-    generate_annotation_files()
-    
