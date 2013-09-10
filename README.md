@@ -3,7 +3,9 @@ Database project for E-Cell 4 P
 
 Required packages
 -----------
-sqlalchemy (v0.8.2)
+see pip_requirements.txt
+
+pip install -r requirement.txt
 
 Scripts
 -----------
