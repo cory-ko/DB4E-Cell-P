@@ -1,29 +1,53 @@
 #!/usr/bine/env python
 
-import sys
-import string
-
 from Bio import SeqIO
 
+
+__author__ = """
+Name: Soh Ishiguro
+E-mail: t10078si@sfc.keio.ac.jp
+"""
+
 def seq_to_array(seq):
-    record = SeqIO.read(seq, "fasta")
-    return [s for s in record]
-
-def add_attribute_to_genomic_array():
-    pass
-
     
+"""
+Generate whole genome sequence array per base.
+Arg: seq_to_array("in.fasta")
+
+"""
+    
+    record = SeqIO.read(seq, "fasta")
+    rec = []
+    for i in record.seq:
+        rec.append([i])
+
+    return rec
+
 ecoli_genome = '/home/soh.i/E-cell_Sprint/NC_000913.fna'
-annotation_file = ''
 
-with open(culated_file,'r') as f:
+
+
+"""
+annotation_file = '../data/CDS_annotation.tbl'
+
+attribute = {}
+with open(annotation_file,'r') as f:
     for line in f:
-        (gene, gene_start, gene_end, gene_strand) = line[:-1].split("\t")
-        attribute = { gene: { "gene" : gene, "start" : start, "end" : end}}
+        (gene, gene_strand, gene_start, gene_end, feature, seq) = line[:-1].split("\t")
+        attribute.update({ gene: { "gene" : gene, "start" : gene_start, "end" : gene_end, "strand" : gene_strand}})
 
-        genomic_array = seq_to_array(ecoli_genome)
-        for index, base enumerate in genomic_array:
-            if gene_start <= base and gene_end >= base:
-                genomic_array[index].append(attribute)
+genomic_array = seq_to_array(ecoli_genome)
+print "generated genomic array"
+
+#for index, base in enumerate(genomic_array):
+for k in attribute:
+    base = genomic_array[int(attribute[k]["start"])]
+    genomic_array[int(attribute[k]["start"])].append(k)
+                  
+        
+                   
+ 
+print genomic_array
 
 
+"""
