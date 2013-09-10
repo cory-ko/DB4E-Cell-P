@@ -7,6 +7,13 @@ Name: Soh Ishiguro
 E-mail: t10078si@sfc.keio.ac.jp
 '''
 
+class GenomicCoordinateException(Exception):
+    def __init__(self, value):
+        self.value = value
+        
+    def __str__(self):
+        return "Genomic position is only 1-based. %d value is not accepted." % (self.value)
+    
 class GenomicCoordinate(object):
 
     def __init__(self, start='', end='', seq='', circular=True):
@@ -94,20 +101,30 @@ def print_seq(seq):
     ss = ''
     for s in seq:
         ss += s[0]
-    print "Extracted seq. %s" % (ss)
+    print "Extracted seq. \n%s\n" % (ss)
+
     
-    
-def main():
+def linear_test():
 
     ecoli_genome = '../data/test.fa'
+    
     ga = GenomicArray(ecoli_genome)	
     whole_seq_array = ga.seq_to_array()
 
-    gc = GenomicCoordinate(start=30, end=200, seq=whole_seq_array, circular=False)
-    
-    print_seq(gc.retrieve_seq())
+    type1 = GenomicCoordinate(start=30, end=200, seq=whole_seq_array, circular=False)
+    print_seq(type1.retrieve_seq())
+
+    type2 = GenomicCoordinate(start=100, end=10000000, seq=whole_seq_array, circular=False)
+    print_seq(type2.retrieve_seq())
+
+    type3 = GenomicCoordinate(start=1000000, end=100)
+    print_seq(type3.retrieve_seq())
+
+
+def circular_genome():
+    pass
     
     
 if __name__ == '__main__':
-    main()
+    linear_test()
     
