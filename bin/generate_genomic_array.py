@@ -17,6 +17,8 @@ class GenomicArray(object):
         
         """
         Generate whole genome sequence array per base.
+
+        Argument: sequence file(fasta)
         
         Usage: gr = GenomicArray("in.fasta")
                gr.seq_to_array()
@@ -27,6 +29,7 @@ class GenomicArray(object):
     
         record = SeqIO.read(self.seq, "fasta")
         self.rec = []
+        
         for i in record.seq:
             self.rec.append([i])
 
@@ -36,8 +39,6 @@ class GenomicArray(object):
 ecoli_genome = '/home/soh.i/E-cell_Sprint/NC_000913.fna'
 g = GenomicArray(ecoli_genome)
 whole_seq_array = g.seq_to_array()
-
-
 
 
 """
