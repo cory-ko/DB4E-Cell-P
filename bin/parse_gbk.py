@@ -18,9 +18,9 @@ else:
 
 def generate_annotation_files():
 
-    cds_f  = open('CDS_annotation.tbl', 'a')
-    rrna_f = open('rRNA_annotation.tbl', 'a')
-    trna_f = open('tRNA_annotation_tbl', 'a')
+    cds_f  = open('../data/CDS_annotation.tbl', 'a')
+    rrna_f = open('../data/rRNA_annotation.tbl', 'a')
+    trna_f = open('../data/tRNA_annotation_tbl', 'a')
 
     handle = open(gbk_file, 'r')
     
@@ -62,14 +62,14 @@ def generate_annotation_files():
 
 if __name__ == '__main__':
     
-    if os.path.isfile('./CDS_annotation.tbl'):
-        os.remove('./CDS_annotation.tbl')
+    if os.path.isfile('../data/CDS_annotation.tbl'):
+        os.remove('../data/CDS_annotation.tbl')
         
-    if os.path.isfile('./rRNA_annotation.tbl'):
-        os.remove('./rRNA_annotation.tbl')
+    if os.path.isfile('../data/rRNA_annotation.tbl'):
+        os.remove('../data/rRNA_annotation.tbl')
                 
-    if os.path.isfile('./tRNA_annotation_tbl'):
-        os.remove('./tRNA_annotation_tbl')
+    if os.path.isfile('../data/tRNA_annotation_tbl'):
+        os.remove('../data/tRNA_annotation_tbl')
         
     generate_annotation_files()
     
