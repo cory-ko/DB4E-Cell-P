@@ -8,7 +8,7 @@ from species import species
 
 def generate_db():
     # for debugging, please set echo=True
-    engine = species.create_engine('sqlite:///db/ecli.db',echo=True)
+    engine = species.create_engine('sqlite:///db/ecli.db', echo=False)
 
     # create table to DB
     species.metadata.create_all(engine)
