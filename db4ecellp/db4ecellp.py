@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from generator import genbank_generator
 from generator import promoter_generator
 from generator import terminator_generator
