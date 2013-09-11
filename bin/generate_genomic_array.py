@@ -38,7 +38,8 @@ class GenomicArray(object):
 
 ecoli_genome = '/home/soh.i/E-cell_Sprint/NC_000913.fna'
 g = GenomicArray(ecoli_genome)
-whole_seq_array = g.seq_to_array()
+whole = g.seq_to_array()
+print whole[0:10]
 
 
 """
