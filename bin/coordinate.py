@@ -7,17 +7,26 @@ Name: Soh Ishiguro
 E-mail: t10078si@sfc.keio.ac.jp
 '''
 
-
 class GenomicCoordinateException(Exception):
+    
+    """
+    Exception class for handling of the whole genomic sequence.
+    Args: GenomicCoordinateException(start, end)
+    """
+    
     def __init__(self, start, end):
         self.start = start
         self.end   = end
 
     def __str__(self):
-        return "Genomic position is only 1-based, given value of %d,%d value is not accepted." % (self.start, self.end)
+        return "Genomic position is only 1-based, %d,%d is not accepted." % (self.start, self.end)
 
 
 class GenomicCoordinate(object):
+    
+    """
+    Generate genomic coordinate class
+    """
 
     def __init__(self, start='', end='', seq='', circular=True):
 
@@ -28,7 +37,8 @@ class GenomicCoordinate(object):
         elif not circular:
             if start <= 0 or end <= 0:
                 raise GenomicCoordinateException(start, end)
-        
+
+        # createe constructor
         self.start    = int(start)
         self.end      = int(end)
         self.sequence = seq
@@ -36,7 +46,6 @@ class GenomicCoordinate(object):
         self.length   = len(seq)
 
     def get_circular_genome(self):
-        
         """
         For circular genomic coordinate
         """
@@ -61,7 +70,6 @@ class GenomicCoordinate(object):
 
 
     def get_linear_genome(self):
-        
         """
         For lnear genomic coordinate.
         """
@@ -99,6 +107,10 @@ class GenomicArray(object):
         self.seq = seq
         
     def seq_to_array(self):
+        """
+        Generate array of array of the given genome sequence
+        """
+        
         record = SeqIO.read(self.seq, "fasta")
         self.rec = []
             
@@ -116,6 +128,9 @@ def print_seq(seq):
     print "Extracted seq. \n%s\n" % (ss)
     
 def linear_test():
+    """
+    test for the linear genomic handling
+    """
 
     ecoli_genome = '../data/test.fa'
     
@@ -132,7 +147,7 @@ def linear_test():
     #print_seq(type3.retrieve_seq())
     
 
-def circular_genome():
+def circular_test():
     pass
     
     
