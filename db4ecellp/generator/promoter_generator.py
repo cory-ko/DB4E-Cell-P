@@ -31,7 +31,6 @@ def generate_annotation_files(promoter_file):
             if not len(lineArray) == 7 :
                 continue
 
-            print lineArray
             if lineArray[2] in "forward":
                 text = "\t".join([ lineArray[0],"1",lineArray[3],lineArray[3],"promoter",lineArray[5] ])
                 output_file.write(text + "\n")
