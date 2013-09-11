@@ -6,8 +6,14 @@ from generator import terminator_generator
 from registration import registration4db
 import os.path
 
+__author__ = """
+yukke(Soh Ishiguro, t10078si@sfc.keio.ac.jp),
+coela(Satoshi Tamaki, coela.st@gmail.com)
+"""
+
 
 class Db4ecellpExcption(Exception):
+    
     def __init__(self, file):
         self.required_file = file
 
@@ -15,13 +21,12 @@ class Db4ecellpExcption(Exception):
         return "%s is not found under the data/*" % (self.required_file)
 
         
-class Db4ecellp:
-    
+class Db4ecellp(object):
     
     def __init__(self):
         gbk    = 'data/NC_000913.gbk'
         fna    = 'data/test.fa'
-        prom   = 'data/promoter.txt'
+        prom   = 'data/PromoterSet.txt'
         termin = 'data/TerminatorSet.txt'
         
         if not os.path.isfile(gbk): 
@@ -36,7 +41,7 @@ class Db4ecellp:
         if not os.path.isfile(termin):
             raise Db4ecellpExcption(termin)
 
-        reregulonDB_files = {
+        regulonDB_files = {
             "Genbank"        : gbk,
             "GenomeSequence" : fna,
             "Promoter"       : prom,
